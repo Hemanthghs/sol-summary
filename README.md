@@ -1,5 +1,7 @@
 # Solana Transaction Summarizer 🔍
 
+## Live Demo: https://solana-txn-summarizer.vercel.app/
+
 An AI-powered web application that provides intelligent analysis and summaries of Solana blockchain transactions. Users can input any Solana transaction hash from devnet, make a micro-payment in USDC, and receive a comprehensive AI-generated analysis of the transaction.
 
 ## 🌟 Features
