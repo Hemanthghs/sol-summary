@@ -32,8 +32,8 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
-cd solana-transaction-summarizer
+git clone https://github.com/Hemanthghs/sol-summary
+cd sol-summary
 ```
 
 ### 2. Install Dependencies
@@ -178,3 +178,9 @@ The AI provides structured analysis including:
 - Confirm Phantom wallet is unlocked
 - Check you have enough USDC (minimum 0.001 USDC)
 - Ensure network is set to devnet
+
+
+## Demo Screenshots
+<img width="1538" height="780" alt="image" src="https://github.com/user-attachments/assets/95518b0d-ab73-4ebf-af52-bb6c17aeafda" />
+<img width="1538" height="951" alt="image" src="https://github.com/user-attachments/assets/7673b3e6-97d6-4d47-bd15-eb1658d51b1d" />
+
