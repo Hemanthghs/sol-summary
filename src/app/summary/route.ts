@@ -196,8 +196,6 @@ export async function POST(req: NextRequest) {
     // Call the LLM with user input
     const transactionData = await fetchSolanaTransaction(userInput);
     const llmResponse = await callGroqLLM(transactionData);
-    console.log("tran....")
-    console.log(llmResponse)
 
     return NextResponse.json({
       success: true,

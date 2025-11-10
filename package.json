@@ -15,6 +15,7 @@
     "@faremeter/payment-solana": "^0.10.3",
     "@faremeter/wallet-solana": "^0.10.3",
     "@solana/web3.js": "^1.95.8",
+    "lucide-react": "^0.553.0",
     "next": "14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
