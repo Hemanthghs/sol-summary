@@ -178,3 +178,9 @@ The AI provides structured analysis including:
 - Confirm Phantom wallet is unlocked
 - Check you have enough USDC (minimum 0.001 USDC)
 - Ensure network is set to devnet
+
+
+## Demo Screenshots
+<img width="963" height="749" alt="image" src="https://github.com/user-attachments/assets/adc12705-eca7-40da-a55c-a9e6474feac1" />
+<img width="932" height="958" alt="image" src="https://github.com/user-attachments/assets/0aad605f-42a4-4128-b942-3e8ddd60c0dc" />
+
