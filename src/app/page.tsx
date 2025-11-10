@@ -1,551 +1,643 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Zap, DollarSign, Brain, Rocket, TrendingUp } from 'lucide-react';
+import { useState } from "react";
+import { createFareMeterClient } from "@/lib/faremeter-client";
+import Link from "next/link";
 
-export default function PitchDeck() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+interface TransactionAnalysis {
+  transactionType?: string;
+  status?: string;
+  blockTime?: string;
+  fee?: string;
+  signers?: string[];
+  mainActions?: string[];
+  summary?: string;
+  [key: string]: any;
+}
 
-  const slides = [
-    {
-      id: 0,
-      title: "Solana Transaction Summarizer",
-      subtitle: "AI-Powered Blockchain Transaction Analysis",
-      content: (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-          <div style={{ fontSize: '120px', marginBottom: '20px' }}>🔍</div>
-          <h1 style={{ 
-            fontSize: '72px', 
-            fontWeight: '700', 
-            background: 'linear-gradient(to right, #22d3ee, #3b82f6, #a855f7)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            marginBottom: '20px',
-            textAlign: 'center'
-          }}>
-            Solana Transaction Summarizer
-          </h1>
-          <p style={{ fontSize: '32px', color: '#d1d5db', maxWidth: '900px', textAlign: 'center', marginBottom: '40px' }}>
-            Making blockchain transactions understandable for everyone
-          </p>
-          <div style={{ display: 'flex', gap: '40px', marginTop: '30px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#22d3ee' }}>
-              <Brain size={36} />
-              <span style={{ fontSize: '24px', fontWeight: '600' }}>AI-Powered</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#a855f7' }}>
-              <Zap size={36} />
-              <span style={{ fontSize: '24px', fontWeight: '600' }}>Instant Analysis</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#10b981' }}>
-              <DollarSign size={36} />
-              <span style={{ fontSize: '24px', fontWeight: '600' }}>Micro-Payments</span>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 1,
-      title: "The Problem",
-      content: (
-        <div style={{ height: '100%' }}>
-          <h2 style={{ fontSize: '56px', fontWeight: '700', marginBottom: '40px', color: 'white' }}>The Problem 🤔</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
-            <div style={{ 
-              background: 'linear-gradient(to right, rgba(127, 29, 29, 0.4), rgba(153, 27, 27, 0.4))', 
-              padding: '30px', 
-              borderRadius: '16px', 
-              borderLeft: '4px solid #ef4444' 
-            }}>
-              <h3 style={{ fontSize: '32px', fontWeight: '700', color: '#fca5a5', marginBottom: '15px' }}>Complex Transaction Data</h3>
-              <p style={{ fontSize: '22px', color: '#d1d5db', lineHeight: '1.6' }}>
-                Blockchain transactions contain cryptic technical data that's difficult for average users to understand
-              </p>
-            </div>
-            
-            <div style={{ 
-              background: 'linear-gradient(to right, rgba(124, 45, 18, 0.4), rgba(154, 52, 18, 0.4))', 
-              padding: '30px', 
-              borderRadius: '16px', 
-              borderLeft: '4px solid #f97316' 
-            }}>
-              <h3 style={{ fontSize: '32px', fontWeight: '700', color: '#fdba74', marginBottom: '15px' }}>Time-Consuming Analysis</h3>
-              <p style={{ fontSize: '22px', color: '#d1d5db', lineHeight: '1.6' }}>
-                Users spend hours trying to decode transaction logs, signers, and operations
-              </p>
-            </div>
-            
-            <div style={{ 
-              background: 'linear-gradient(to right, rgba(113, 63, 18, 0.4), rgba(133, 77, 14, 0.4))', 
-              padding: '30px', 
-              borderRadius: '16px', 
-              borderLeft: '4px solid #eab308' 
-            }}>
-              <h3 style={{ fontSize: '32px', fontWeight: '700', color: '#fde047', marginBottom: '15px' }}>Limited Accessibility</h3>
-              <p style={{ fontSize: '22px', color: '#d1d5db', lineHeight: '1.6' }}>
-                Non-technical users struggle to audit their own transactions and verify operations
-              </p>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 2,
-      title: "Our Solution",
-      content: (
-        <div style={{ height: '100%' }}>
-          <h2 style={{ fontSize: '56px', fontWeight: '700', marginBottom: '40px', color: 'white' }}>Our Solution ✨</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
-            <div style={{ 
-              background: 'linear-gradient(to bottom right, rgba(8, 145, 178, 0.5), rgba(30, 58, 138, 0.5))', 
-              padding: '35px', 
-              borderRadius: '16px', 
-              border: '1px solid rgba(34, 211, 238, 0.3)',
-              transition: 'all 0.3s'
-            }}>
-              <div style={{ fontSize: '60px', marginBottom: '15px' }}>🤖</div>
-              <h3 style={{ fontSize: '28px', fontWeight: '700', color: '#67e8f9', marginBottom: '15px' }}>AI-Powered Analysis</h3>
-              <p style={{ fontSize: '20px', color: '#d1d5db', lineHeight: '1.5' }}>
-                Groq's LLM analyzes transaction data and provides human-readable summaries with key insights
-              </p>
-            </div>
-            
-            <div style={{ 
-              background: 'linear-gradient(to bottom right, rgba(88, 28, 135, 0.5), rgba(157, 23, 77, 0.5))', 
-              padding: '35px', 
-              borderRadius: '16px', 
-              border: '1px solid rgba(168, 85, 247, 0.3)',
-              transition: 'all 0.3s'
-            }}>
-              <div style={{ fontSize: '60px', marginBottom: '15px' }}>⚡</div>
-              <h3 style={{ fontSize: '28px', fontWeight: '700', color: '#c084fc', marginBottom: '15px' }}>Instant Results</h3>
-              <p style={{ fontSize: '20px', color: '#d1d5db', lineHeight: '1.5' }}>
-                Get comprehensive transaction analysis in seconds, not hours
-              </p>
-            </div>
-            
-            <div style={{ 
-              background: 'linear-gradient(to bottom right, rgba(6, 78, 59, 0.5), rgba(4, 120, 87, 0.5))', 
-              padding: '35px', 
-              borderRadius: '16px', 
-              border: '1px solid rgba(16, 185, 129, 0.3)',
-              transition: 'all 0.3s'
-            }}>
-              <div style={{ fontSize: '60px', marginBottom: '15px' }}>💰</div>
-              <h3 style={{ fontSize: '28px', fontWeight: '700', color: '#6ee7b7', marginBottom: '15px' }}>Pay-Per-Use Model</h3>
-              <p style={{ fontSize: '20px', color: '#d1d5db', lineHeight: '1.5' }}>
-                Only 0.001 USDC per analysis using FareMeter's micro-payment infrastructure
-              </p>
-            </div>
-            
-            <div style={{ 
-              background: 'linear-gradient(to bottom right, rgba(30, 58, 138, 0.5), rgba(49, 46, 129, 0.5))', 
-              padding: '35px', 
-              borderRadius: '16px', 
-              border: '1px solid rgba(59, 130, 246, 0.3)',
-              transition: 'all 0.3s'
-            }}>
-              <div style={{ fontSize: '60px', marginBottom: '15px' }}>📊</div>
-              <h3 style={{ fontSize: '28px', fontWeight: '700', color: '#93c5fd', marginBottom: '15px' }}>Structured Insights</h3>
-              <p style={{ fontSize: '20px', color: '#d1d5db', lineHeight: '1.5' }}>
-                View transaction type, status, fees, signers, actions, and AI-generated summaries
-              </p>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 3,
-      title: "How It Works",
-      content: (
-        <div style={{ height: '100%' }}>
-          <h2 style={{ fontSize: '56px', fontWeight: '700', marginBottom: '40px', color: 'white' }}>How It Works 🔄</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'flex-start', 
-              gap: '25px', 
-              background: 'linear-gradient(to right, rgba(30, 41, 59, 0.5), rgba(51, 65, 85, 0.5))', 
-              padding: '25px', 
-              borderRadius: '12px', 
-              border: '1px solid rgba(71, 85, 105, 0.3)',
-              transition: 'all 0.3s'
-            }}>
-              <div style={{ 
-                background: '#06b6d4', 
-                color: 'white', 
-                borderRadius: '50%', 
-                width: '50px', 
-                height: '50px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                fontSize: '24px', 
-                fontWeight: '700',
-                flexShrink: 0
-              }}>1</div>
-              <div>
-                <h3 style={{ fontSize: '26px', fontWeight: '700', color: '#67e8f9', marginBottom: '10px' }}>Connect Phantom Wallet</h3>
-                <p style={{ fontSize: '20px', color: '#d1d5db' }}>User connects their Phantom wallet on Solana Devnet</p>
-              </div>
-            </div>
-            
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'flex-start', 
-              gap: '25px', 
-              background: 'linear-gradient(to right, rgba(30, 41, 59, 0.5), rgba(51, 65, 85, 0.5))', 
-              padding: '25px', 
-              borderRadius: '12px', 
-              border: '1px solid rgba(71, 85, 105, 0.3)',
-              transition: 'all 0.3s'
-            }}>
-              <div style={{ 
-                background: '#a855f7', 
-                color: 'white', 
-                borderRadius: '50%', 
-                width: '50px', 
-                height: '50px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                fontSize: '24px', 
-                fontWeight: '700',
-                flexShrink: 0
-              }}>2</div>
-              <div>
-                <h3 style={{ fontSize: '26px', fontWeight: '700', color: '#c084fc', marginBottom: '10px' }}>Enter Transaction Hash</h3>
-                <p style={{ fontSize: '20px', color: '#d1d5db' }}>User pastes any Solana transaction signature from devnet</p>
-              </div>
-            </div>
-            
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'flex-start', 
-              gap: '25px', 
-              background: 'linear-gradient(to right, rgba(30, 41, 59, 0.5), rgba(51, 65, 85, 0.5))', 
-              padding: '25px', 
-              borderRadius: '12px', 
-              border: '1px solid rgba(71, 85, 105, 0.3)',
-              transition: 'all 0.3s'
-            }}>
-              <div style={{ 
-                background: '#10b981', 
-                color: 'white', 
-                borderRadius: '50%', 
-                width: '50px', 
-                height: '50px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                fontSize: '24px', 
-                fontWeight: '700',
-                flexShrink: 0
-              }}>3</div>
-              <div>
-                <h3 style={{ fontSize: '26px', fontWeight: '700', color: '#6ee7b7', marginBottom: '10px' }}>Make Micro-Payment</h3>
-                <p style={{ fontSize: '20px', color: '#d1d5db' }}>Pay 0.001 USDC via FareMeter's payment middleware</p>
-              </div>
-            </div>
-            
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'flex-start', 
-              gap: '25px', 
-              background: 'linear-gradient(to right, rgba(30, 41, 59, 0.5), rgba(51, 65, 85, 0.5))', 
-              padding: '25px', 
-              borderRadius: '12px', 
-              border: '1px solid rgba(71, 85, 105, 0.3)',
-              transition: 'all 0.3s'
-            }}>
-              <div style={{ 
-                background: '#3b82f6', 
-                color: 'white', 
-                borderRadius: '50%', 
-                width: '50px', 
-                height: '50px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                fontSize: '24px', 
-                fontWeight: '700',
-                flexShrink: 0
-              }}>4</div>
-              <div>
-                <h3 style={{ fontSize: '26px', fontWeight: '700', color: '#93c5fd', marginBottom: '10px' }}>AI Analysis</h3>
-                <p style={{ fontSize: '20px', color: '#d1d5db' }}>Groq LLM analyzes the transaction and generates insights</p>
-              </div>
-            </div>
-            
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'flex-start', 
-              gap: '25px', 
-              background: 'linear-gradient(to right, rgba(30, 41, 59, 0.5), rgba(51, 65, 85, 0.5))', 
-              padding: '25px', 
-              borderRadius: '12px', 
-              border: '1px solid rgba(71, 85, 105, 0.3)',
-              transition: 'all 0.3s'
-            }}>
-              <div style={{ 
-                background: '#ec4899', 
-                color: 'white', 
-                borderRadius: '50%', 
-                width: '50px', 
-                height: '50px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                fontSize: '24px', 
-                fontWeight: '700',
-                flexShrink: 0
-              }}>5</div>
-              <div>
-                <h3 style={{ fontSize: '26px', fontWeight: '700', color: '#f9a8d4', marginBottom: '10px' }}>View Results</h3>
-                <p style={{ fontSize: '20px', color: '#d1d5db' }}>Get comprehensive analysis with structured data and AI summary</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: 4,
-      title: "Tech Stack & Future",
-      content: (
-        <div style={{ height: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
-          <div>
-            <h2 style={{ fontSize: '48px', fontWeight: '700', marginBottom: '30px', color: 'white' }}>Tech Stack 🛠️</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <div style={{ background: 'rgba(30, 41, 59, 0.5)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(71, 85, 105, 0.3)' }}>
-                <h4 style={{ fontSize: '22px', fontWeight: '700', color: '#22d3ee', marginBottom: '10px' }}>Frontend</h4>
-                <p style={{ color: '#d1d5db', fontSize: '18px' }}>Next.js 14, React, TypeScript</p>
-              </div>
-              <div style={{ background: 'rgba(30, 41, 59, 0.5)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(71, 85, 105, 0.3)' }}>
-                <h4 style={{ fontSize: '22px', fontWeight: '700', color: '#a855f7', marginBottom: '10px' }}>Blockchain</h4>
-                <p style={{ color: '#d1d5db', fontSize: '18px' }}>Solana Web3.js, Phantom Wallet</p>
-              </div>
-              <div style={{ background: 'rgba(30, 41, 59, 0.5)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(71, 85, 105, 0.3)' }}>
-                <h4 style={{ fontSize: '22px', fontWeight: '700', color: '#10b981', marginBottom: '10px' }}>Payments</h4>
-                <p style={{ color: '#d1d5db', fontSize: '18px' }}>FareMeter Middleware, USDC</p>
-              </div>
-              <div style={{ background: 'rgba(30, 41, 59, 0.5)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(71, 85, 105, 0.3)' }}>
-                <h4 style={{ fontSize: '22px', fontWeight: '700', color: '#3b82f6', marginBottom: '10px' }}>AI</h4>
-                <p style={{ color: '#d1d5db', fontSize: '18px' }}>Groq API (GPT-OSS-20B)</p>
-              </div>
-            </div>
-          </div>
-          
-          <div>
-            <h2 style={{ fontSize: '48px', fontWeight: '700', marginBottom: '30px', color: 'white' }}>Future Roadmap 🚀</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <div style={{ 
-                background: 'linear-gradient(to right, rgba(8, 145, 178, 0.3), rgba(6, 182, 212, 0.3))', 
-                padding: '20px', 
-                borderRadius: '12px', 
-                borderLeft: '4px solid #06b6d4' 
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-                  <Rocket size={24} style={{ color: '#22d3ee' }} />
-                  <h4 style={{ fontSize: '22px', fontWeight: '700', color: '#67e8f9' }}>Mainnet Launch</h4>
-                </div>
-                <p style={{ color: '#d1d5db', fontSize: '18px' }}>Deploy to Solana mainnet-beta</p>
-              </div>
-              
-              <div style={{ 
-                background: 'linear-gradient(to right, rgba(88, 28, 135, 0.3), rgba(126, 34, 206, 0.3))', 
-                padding: '20px', 
-                borderRadius: '12px', 
-                borderLeft: '4px solid #a855f7' 
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-                  <Brain size={24} style={{ color: '#a855f7' }} />
-                  <h4 style={{ fontSize: '22px', fontWeight: '700', color: '#c084fc' }}>Advanced AI Models</h4>
-                </div>
-                <p style={{ color: '#d1d5db', fontSize: '18px' }}>Integrate multiple AI models for deeper analysis</p>
-              </div>
-              
-              <div style={{ 
-                background: 'linear-gradient(to right, rgba(6, 78, 59, 0.3), rgba(5, 150, 105, 0.3))', 
-                padding: '20px', 
-                borderRadius: '12px', 
-                borderLeft: '4px solid #10b981' 
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-                  <TrendingUp size={24} style={{ color: '#10b981' }} />
-                  <h4 style={{ fontSize: '22px', fontWeight: '700', color: '#6ee7b7' }}>Batch Analysis</h4>
-                </div>
-                <p style={{ color: '#d1d5db', fontSize: '18px' }}>Analyze multiple transactions at once</p>
-              </div>
-              
-              <div style={{ 
-                background: 'linear-gradient(to right, rgba(30, 58, 138, 0.3), rgba(37, 99, 235, 0.3))', 
-                padding: '20px', 
-                borderRadius: '12px', 
-                borderLeft: '4px solid #3b82f6' 
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-                  <Zap size={24} style={{ color: '#3b82f6' }} />
-                  <h4 style={{ fontSize: '22px', fontWeight: '700', color: '#93c5fd' }}>Real-time Monitoring</h4>
-                </div>
-                <p style={{ color: '#d1d5db', fontSize: '18px' }}>Watch and analyze transactions in real-time</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    }
-  ];
+export default function Home() {
+  const [response, setResponse] = useState<string>("");
+  const [analysis, setAnalysis] = useState<TransactionAnalysis | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("");
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
+  const handleMint = async () => {
+    setLoading(true);
+    setError("");
+    setResponse("");
+    setAnalysis(null);
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
+    try {
+      const fetchWithPayment = await createFareMeterClient();
 
-  // Add keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: any) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        if (currentSlide < slides.length - 1) {
-          nextSlide();
-        }
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        if (currentSlide > 0) {
-          prevSlide();
-        }
+      const res = await fetchWithPayment("/summary", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ input: inputValue }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
       }
-    };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSlide, slides.length]);
+      const data = await res.json();
+
+      // Try to parse the llmResponse
+      if (data.llmResponse) {
+        try {
+          // If llmResponse is a string, parse it
+          const parsedAnalysis =
+            typeof data.llmResponse === "string"
+              ? JSON.parse(data.llmResponse)
+              : data.llmResponse;
+          setAnalysis(parsedAnalysis);
+        } catch (parseError) {
+          console.error("Failed to parse llmResponse:", parseError);
+          // If parsing fails, show raw response
+          setResponse(JSON.stringify(data, null, 2));
+        }
+      } else {
+        setResponse(JSON.stringify(data, null, 2));
+      }
+    } catch (err: any) {
+      console.error("Full error:", err);
+      setError(err.message || err.toString() || "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div style={{ 
-      minHeight: '100vh', 
-      background: 'linear-gradient(to bottom right, #0f172a, #581c87, #0f172a)', 
-      display: 'flex', 
-      flexDirection: 'column' 
-    }}>
-      {/* Main Content */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px' }}>
-        <div style={{ width: '100%', maxWidth: '1400px' }}>
-          <div style={{ 
-            background: 'rgba(30, 41, 59, 0.4)', 
-            backdropFilter: 'blur(16px)', 
-            borderRadius: '24px', 
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)', 
-            border: '1px solid rgba(71, 85, 105, 0.5)', 
-            padding: '50px', 
-            minHeight: '600px' 
-          }}>
-            {slides[currentSlide].content}
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <div style={{ paddingBottom: '40px', paddingLeft: '40px', paddingRight: '40px' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <button
-            onClick={prevSlide}
-            disabled={currentSlide === 0}
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
+        padding: "40px 20px",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "900px",
+          margin: "0 auto",
+        }}
+      >
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <h1
             style={{
-              background: 'rgba(51, 65, 85, 0.5)',
-              color: 'white',
-              padding: '16px',
-              borderRadius: '50%',
-              border: 'none',
-              cursor: currentSlide === 0 ? 'not-allowed' : 'pointer',
-              opacity: currentSlide === 0 ? 0.5 : 1,
-              transition: 'all 0.3s',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-            onMouseEnter={(e) => {
-              if (currentSlide !== 0) {
-                e.currentTarget.style.background = 'rgba(71, 85, 105, 0.5)';
-                e.currentTarget.style.transform = 'scale(1.1)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(51, 65, 85, 0.5)';
-              e.currentTarget.style.transform = 'scale(1)';
+              fontSize: "48px",
+              fontWeight: "700",
+              color: "white",
+              marginBottom: "10px",
+              textShadow: "0 2px 10px rgba(0,0,0,0.2)",
             }}
           >
-            <ChevronLeft size={24} />
-          </button>
+            Solana Transaction Summarizer
+          </h1>
+          <p
+            style={{
+              fontSize: "18px",
+              color: "rgba(255,255,255,0.9)",
+              marginBottom: "0",
+            }}
+          >
+            AI-powered analysis of your Solana transactions
+          </p>
+        </div>
 
-          <div style={{ display: 'flex', gap: '12px' }}>
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
+        {/* Main Card */}
+        <div
+          style={{
+            background: "#1e293b",
+            borderRadius: "16px",
+            boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
+            overflow: "hidden",
+            border: "1px solid #334155",
+          }}
+        >
+          {/* Info Section */}
+          <div
+            style={{
+              background: "linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)",
+              padding: "30px",
+              color: "white",
+            }}
+          >
+            <h2
+              style={{
+                margin: "0 0 15px 0",
+                fontSize: "24px",
+                fontWeight: "600",
+              }}
+            >
+              How it works
+            </h2>
+            <ol style={{ paddingLeft: "20px", lineHeight: "1.8", margin: 0 }}>
+              <li>Connect your Phantom wallet (Solana Devnet)</li>
+              <li>
+                Get free devnet USDC from{" "}
+                <a
+                  href="https://faucet.circle.com/"
+                  target="_blank"
+                  rel="noopener"
+                  style={{ color: "white", textDecoration: "underline" }}
+                >
+                  Circle Faucet
+                </a>
+              </li>
+              <li>Paste any Solana transaction hash from devnet</li>
+              <li>Pay 0.001 USDC to get AI-powered analysis</li>
+            </ol>
+          </div>
+
+          {/* Input Section */}
+          <div style={{ padding: "30px" }}>
+            <label
+              htmlFor="tx-hash"
+              style={{
+                display: "block",
+                marginBottom: "12px",
+                fontWeight: "600",
+                fontSize: "16px",
+                color: "#e2e8f0",
+              }}
+            >
+              Transaction Signature
+            </label>
+            <input
+              id="tx-hash"
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Paste Solana transaction hash here..."
+              style={{
+                width: "100%",
+                padding: "16px",
+                fontSize: "15px",
+                borderRadius: "8px",
+                border: "2px solid #334155",
+                boxSizing: "border-box",
+                fontFamily: "monospace",
+                transition: "border-color 0.2s",
+                outline: "none",
+                background: "#0f172a",
+                color: "#e2e8f0",
+              }}
+              onFocus={(e) => (e.target.style.borderColor = "#0ea5e9")}
+              onBlur={(e) => (e.target.style.borderColor = "#334155")}
+            />
+
+            <button
+              onClick={handleMint}
+              disabled={loading || !inputValue.trim()}
+              style={{
+                background:
+                  loading || !inputValue.trim()
+                    ? "#475569"
+                    : "linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)",
+                color: "white",
+                border: "none",
+                padding: "16px 32px",
+                fontSize: "16px",
+                fontWeight: "600",
+                borderRadius: "8px",
+                cursor:
+                  loading || !inputValue.trim() ? "not-allowed" : "pointer",
+                width: "100%",
+                marginTop: "20px",
+                boxShadow:
+                  loading || !inputValue.trim()
+                    ? "none"
+                    : "0 4px 15px rgba(14, 165, 233, 0.4)",
+                transition: "all 0.3s",
+              }}
+              onMouseEnter={(e) => {
+                if (!loading && inputValue.trim()) {
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 6px 20px rgba(14, 165, 233, 0.6)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow =
+                  loading || !inputValue.trim()
+                    ? "none"
+                    : "0 4px 15px rgba(14, 165, 233, 0.4)";
+              }}
+            >
+              {loading
+                ? "🔄 Analyzing Transaction..."
+                : "✨ Analyze Transaction (0.001 USDC)"}
+            </button>
+
+            {/* Error Display */}
+            {error && (
+              <div
                 style={{
-                  height: '12px',
-                  width: index === currentSlide ? '48px' : '12px',
-                  borderRadius: '6px',
-                  border: 'none',
-                  background: index === currentSlide 
-                    ? 'linear-gradient(to right, #22d3ee, #3b82f6)' 
-                    : '#475569',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s'
+                  background: "#7f1d1d",
+                  color: "#fecaca",
+                  padding: "16px",
+                  borderRadius: "8px",
+                  marginTop: "20px",
+                  border: "1px solid #991b1b",
+                  wordBreak: "break-word",
                 }}
-                onMouseEnter={(e) => {
-                  if (index !== currentSlide) {
-                    e.currentTarget.style.background = '#64748b';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (index !== currentSlide) {
-                    e.currentTarget.style.background = '#475569';
-                  }
-                }}
-              />
-            ))}
+              >
+                <strong>⚠️ Error:</strong> {error}
+              </div>
+            )}
           </div>
-
-          <button
-            onClick={nextSlide}
-            disabled={currentSlide === slides.length - 1}
-            style={{
-              background: 'rgba(51, 65, 85, 0.5)',
-              color: 'white',
-              padding: '16px',
-              borderRadius: '50%',
-              border: 'none',
-              cursor: currentSlide === slides.length - 1 ? 'not-allowed' : 'pointer',
-              opacity: currentSlide === slides.length - 1 ? 0.5 : 1,
-              transition: 'all 0.3s',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-            onMouseEnter={(e) => {
-              if (currentSlide !== slides.length - 1) {
-                e.currentTarget.style.background = 'rgba(71, 85, 105, 0.5)';
-                e.currentTarget.style.transform = 'scale(1.1)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(51, 65, 85, 0.5)';
-              e.currentTarget.style.transform = 'scale(1)';
-            }}
-          >
-            <ChevronRight size={24} />
-          </button>
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: '20px', color: '#94a3b8', fontSize: '14px' }}>
-          Slide {currentSlide + 1} of {slides.length}
+        {/* Analysis Results */}
+        {analysis && (
+          <div
+            style={{
+              background: "#1e293b",
+              borderRadius: "16px",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
+              marginTop: "30px",
+              overflow: "hidden",
+              border: "1px solid #334155",
+            }}
+          >
+            <div
+              style={{
+                background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                padding: "20px 30px",
+              }}
+            >
+              <h3
+                style={{
+                  margin: 0,
+                  fontSize: "24px",
+                  fontWeight: "600",
+                  color: "white",
+                }}
+              >
+                📊 Transaction Analysis
+              </h3>
+            </div>
+
+            <div style={{ padding: "30px" }}>
+              {/* Transaction Type & Status Row */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "20px",
+                  marginBottom: "25px",
+                }}
+              >
+                {/* Transaction Type */}
+                {analysis.transactionType && (
+                  <div>
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        color: "#94a3b8",
+                        marginBottom: "8px",
+                        fontWeight: "600",
+                        letterSpacing: "0.5px",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Type
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "18px",
+                        color: "#e2e8f0",
+                        fontWeight: "600",
+                        padding: "12px",
+                        background: "#0f172a",
+                        borderRadius: "6px",
+                        border: "1px solid #334155",
+                      }}
+                    >
+                      {analysis.transactionType}
+                    </div>
+                  </div>
+                )}
+
+                {/* Status */}
+                {analysis.status && (
+                  <div>
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        color: "#94a3b8",
+                        marginBottom: "8px",
+                        fontWeight: "600",
+                        letterSpacing: "0.5px",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Status
+                    </div>
+                    <div
+                      style={{
+                        display: "inline-block",
+                        padding: "12px 24px",
+                        borderRadius: "6px",
+                        fontSize: "16px",
+                        fontWeight: "600",
+                        background:
+                          analysis.status.toLowerCase() === "success"
+                            ? "linear-gradient(135deg, #10b981 0%, #059669 100%)"
+                            : "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+                        color: "white",
+                      }}
+                    >
+                      {analysis.status.toUpperCase()}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Block Time & Fee Row */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "20px",
+                  marginBottom: "25px",
+                }}
+              >
+                {/* Block Time */}
+                {analysis.blockTime && (
+                  <div>
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        color: "#94a3b8",
+                        marginBottom: "8px",
+                        fontWeight: "600",
+                        letterSpacing: "0.5px",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Block Time
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "15px",
+                        color: "#cbd5e1",
+                        padding: "12px",
+                        background: "#0f172a",
+                        borderRadius: "6px",
+                        fontFamily: "monospace",
+                        border: "1px solid #334155",
+                      }}
+                    >
+                      {new Date(analysis.blockTime).toLocaleString()}
+                    </div>
+                  </div>
+                )}
+
+                {/* Fee */}
+                {analysis.fee && (
+                  <div>
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        color: "#94a3b8",
+                        marginBottom: "8px",
+                        fontWeight: "600",
+                        letterSpacing: "0.5px",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Transaction Fee
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "18px",
+                        color: "#0ea5e9",
+                        fontWeight: "600",
+                        padding: "12px",
+                        background: "#0f172a",
+                        borderRadius: "6px",
+                        border: "1px solid #334155",
+                      }}
+                    >
+                      {analysis.fee}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Signers */}
+              {analysis.signers && analysis.signers.length > 0 && (
+                <div style={{ marginBottom: "25px" }}>
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      color: "#94a3b8",
+                      marginBottom: "12px",
+                      fontWeight: "600",
+                      letterSpacing: "0.5px",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Signers ({analysis.signers.length})
+                  </div>
+                  {analysis.signers.map((signer, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        fontSize: "14px",
+                        fontFamily: "monospace",
+                        background: "#0f172a",
+                        padding: "12px 16px",
+                        borderRadius: "6px",
+                        marginBottom: "8px",
+                        wordBreak: "break-all",
+                        border: "1px solid #334155",
+                        color: "#cbd5e1",
+                      }}
+                    >
+                      {signer}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Main Actions */}
+              {analysis.mainActions && analysis.mainActions.length > 0 && (
+                <div style={{ marginBottom: "25px" }}>
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      color: "#94a3b8",
+                      marginBottom: "12px",
+                      fontWeight: "600",
+                      letterSpacing: "0.5px",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Actions Performed
+                  </div>
+                  <div
+                    style={{
+                      background: "#0f172a",
+                      padding: "16px",
+                      borderRadius: "8px",
+                      border: "1px solid #334155",
+                    }}
+                  >
+                    <ul style={{ margin: 0, paddingLeft: "24px" }}>
+                      {analysis.mainActions.map((action, idx) => (
+                        <li
+                          key={idx}
+                          style={{
+                            fontSize: "15px",
+                            color: "#cbd5e1",
+                            marginBottom: "10px",
+                            lineHeight: "1.6",
+                          }}
+                        >
+                          {action}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {/* Summary */}
+              {analysis.summary && (
+                <div>
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      color: "#94a3b8",
+                      marginBottom: "12px",
+                      fontWeight: "600",
+                      letterSpacing: "0.5px",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    AI Summary
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      color: "#e2e8f0",
+                      lineHeight: "1.7",
+                      background: "rgba(14, 165, 233, 0.1)",
+                      padding: "20px",
+                      borderRadius: "8px",
+                      borderLeft: "4px solid #0ea5e9",
+                    }}
+                  >
+                    {analysis.summary}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Raw Response (Fallback) */}
+        {response && (
+          <div
+            style={{
+              background: "#1e293b",
+              borderRadius: "16px",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
+              marginTop: "30px",
+              padding: "30px",
+              border: "1px solid #334155",
+            }}
+          >
+            <strong style={{ fontSize: "18px", color: "#e2e8f0" }}>
+              Raw Response:
+            </strong>
+            <pre
+              style={{
+                marginTop: "15px",
+                background: "#0f172a",
+                padding: "20px",
+                borderRadius: "8px",
+                overflow: "auto",
+                fontSize: "13px",
+                border: "1px solid #334155",
+                color: "#cbd5e1",
+              }}
+            >
+              {response}
+            </pre>
+          </div>
+        )}
+
+        {/* Footer Note */}
+        <div
+          style={{
+            marginTop: "30px",
+            padding: "20px",
+            background: "#1e293b",
+            borderRadius: "12px",
+            fontSize: "14px",
+            textAlign: "center",
+            color: "#cbd5e1",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+            border: "1px solid #334155",
+          }}
+        >
+          Make sure you have{" "}
+          <a
+            href="https://phantom.app"
+            target="_blank"
+            rel="noopener"
+            style={{
+              color: "#0ea5e9",
+              textDecoration: "none",
+              fontWeight: "600",
+            }}
+          >
+            Phantom Wallet
+          </a>{" "}
+          installed and connected to Solana Devnet with USDC tokens.
+        </div>
+        {/* Pitch Deck Link */}
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: "20px",
+          }}
+        >
+          <Link
+            href="/pitch-deck"
+            style={{
+              display: "inline-block",
+              padding: "12px 24px",
+              borderRadius: "8px",
+              fontSize: "16px",
+              fontWeight: "600",
+              color: "white",
+              background: "linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%)",
+              textDecoration: "none",
+              boxShadow: "0 4px 15px rgba(14, 165, 233, 0.35)",
+              transition: "all 0.3s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow =
+                "0 6px 20px rgba(14, 165, 233, 0.5)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow =
+                "0 4px 15px rgba(14, 165, 233, 0.35)";
+            }}
+          >
+            📑 View Full Pitch Deck
+          </Link>
         </div>
       </div>
     </div>

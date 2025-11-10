@@ -10,6 +10,7 @@ import {
   Rocket,
   TrendingUp,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function PitchDeck() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -20,26 +21,80 @@ export default function PitchDeck() {
       title: "Solana Transaction Summarizer",
       subtitle: "AI-Powered Blockchain Transaction Analysis",
       content: (
-        <div className="flex flex-col items-center justify-center h-full space-y-8">
-          <div className="text-8xl mb-4">🔍</div>
-          <h1 className="text-7xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+          }}
+        >
+          <div style={{ fontSize: "120px", marginBottom: "20px" }}>🔍</div>
+          <h1
+            style={{
+              fontSize: "72px",
+              fontWeight: "700",
+              background:
+                "linear-gradient(to right, #22d3ee, #3b82f6, #a855f7)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              marginBottom: "20px",
+              textAlign: "center",
+            }}
+          >
             Solana Transaction Summarizer
           </h1>
-          <p className="text-3xl text-gray-300 max-w-3xl text-center">
+          <p
+            style={{
+              fontSize: "32px",
+              color: "#d1d5db",
+              maxWidth: "900px",
+              textAlign: "center",
+              marginBottom: "40px",
+            }}
+          >
             Making blockchain transactions understandable for everyone
           </p>
-          <div className="flex gap-6 mt-8">
-            <div className="flex items-center gap-2 text-cyan-400">
-              <Brain size={32} />
-              <span className="text-xl font-semibold">AI-Powered</span>
+          <div style={{ display: "flex", gap: "40px", marginTop: "30px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                color: "#22d3ee",
+              }}
+            >
+              <Brain size={36} />
+              <span style={{ fontSize: "24px", fontWeight: "600" }}>
+                AI-Powered
+              </span>
             </div>
-            <div className="flex items-center gap-2 text-purple-400">
-              <Zap size={32} />
-              <span className="text-xl font-semibold">Instant Analysis</span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                color: "#a855f7",
+              }}
+            >
+              <Zap size={36} />
+              <span style={{ fontSize: "24px", fontWeight: "600" }}>
+                Instant Analysis
+              </span>
             </div>
-            <div className="flex items-center gap-2 text-green-400">
-              <DollarSign size={32} />
-              <span className="text-xl font-semibold">Micro-Payments</span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                color: "#10b981",
+              }}
+            >
+              <DollarSign size={36} />
+              <span style={{ fontSize: "24px", fontWeight: "600" }}>
+                Micro-Payments
+              </span>
             </div>
           </div>
         </div>
@@ -49,41 +104,111 @@ export default function PitchDeck() {
       id: 1,
       title: "The Problem",
       content: (
-        <div className="grid grid-cols-1 gap-8 h-full">
-          <div>
-            <h2 className="text-5xl font-bold mb-8 text-white">
-              The Problem 🤔
-            </h2>
-            <div className="space-y-6">
-              <div className="bg-gradient-to-r from-red-900/40 to-red-800/40 p-8 rounded-2xl border-l-4 border-red-500">
-                <h3 className="text-3xl font-bold text-red-300 mb-4">
-                  Complex Transaction Data
-                </h3>
-                <p className="text-xl text-gray-300">
-                  Blockchain transactions contain cryptic technical data that's
-                  difficult for average users to understand
-                </p>
-              </div>
+        <div style={{ height: "100%" }}>
+          <h2
+            style={{
+              fontSize: "56px",
+              fontWeight: "700",
+              marginBottom: "40px",
+              color: "white",
+            }}
+          >
+            The Problem 🤔
+          </h2>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "30px" }}
+          >
+            <div
+              style={{
+                background:
+                  "linear-gradient(to right, rgba(127, 29, 29, 0.4), rgba(153, 27, 27, 0.4))",
+                padding: "30px",
+                borderRadius: "16px",
+                borderLeft: "4px solid #ef4444",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: "32px",
+                  fontWeight: "700",
+                  color: "#fca5a5",
+                  marginBottom: "15px",
+                }}
+              >
+                Complex Transaction Data
+              </h3>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#d1d5db",
+                  lineHeight: "1.6",
+                }}
+              >
+                Blockchain transactions contain cryptic technical data that's
+                difficult for average users to understand
+              </p>
+            </div>
 
-              <div className="bg-gradient-to-r from-orange-900/40 to-orange-800/40 p-8 rounded-2xl border-l-4 border-orange-500">
-                <h3 className="text-3xl font-bold text-orange-300 mb-4">
-                  Time-Consuming Analysis
-                </h3>
-                <p className="text-xl text-gray-300">
-                  Users spend hours trying to decode transaction logs, signers,
-                  and operations
-                </p>
-              </div>
+            <div
+              style={{
+                background:
+                  "linear-gradient(to right, rgba(124, 45, 18, 0.4), rgba(154, 52, 18, 0.4))",
+                padding: "30px",
+                borderRadius: "16px",
+                borderLeft: "4px solid #f97316",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: "32px",
+                  fontWeight: "700",
+                  color: "#fdba74",
+                  marginBottom: "15px",
+                }}
+              >
+                Time-Consuming Analysis
+              </h3>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#d1d5db",
+                  lineHeight: "1.6",
+                }}
+              >
+                Users spend hours trying to decode transaction logs, signers,
+                and operations
+              </p>
+            </div>
 
-              <div className="bg-gradient-to-r from-yellow-900/40 to-yellow-800/40 p-8 rounded-2xl border-l-4 border-yellow-500">
-                <h3 className="text-3xl font-bold text-yellow-300 mb-4">
-                  Limited Accessibility
-                </h3>
-                <p className="text-xl text-gray-300">
-                  Non-technical users struggle to audit their own transactions
-                  and verify operations
-                </p>
-              </div>
+            <div
+              style={{
+                background:
+                  "linear-gradient(to right, rgba(113, 63, 18, 0.4), rgba(133, 77, 14, 0.4))",
+                padding: "30px",
+                borderRadius: "16px",
+                borderLeft: "4px solid #eab308",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: "32px",
+                  fontWeight: "700",
+                  color: "#fde047",
+                  marginBottom: "15px",
+                }}
+              >
+                Limited Accessibility
+              </h3>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#d1d5db",
+                  lineHeight: "1.6",
+                }}
+              >
+                Non-technical users struggle to audit their own transactions and
+                verify operations
+              </p>
             </div>
           </div>
         </div>
@@ -93,49 +218,150 @@ export default function PitchDeck() {
       id: 2,
       title: "Our Solution",
       content: (
-        <div className="h-full">
-          <h2 className="text-5xl font-bold mb-8 text-white">
+        <div style={{ height: "100%" }}>
+          <h2
+            style={{
+              fontSize: "56px",
+              fontWeight: "700",
+              marginBottom: "40px",
+              color: "white",
+            }}
+          >
             Our Solution ✨
           </h2>
-          <div className="grid grid-cols-2 gap-6">
-            <div className="bg-gradient-to-br from-cyan-900/50 to-blue-900/50 p-8 rounded-2xl border border-cyan-500/30 hover:border-cyan-400 transition-all">
-              <div className="text-5xl mb-4">🤖</div>
-              <h3 className="text-2xl font-bold text-cyan-300 mb-4">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "30px",
+            }}
+          >
+            <div
+              style={{
+                background:
+                  "linear-gradient(to bottom right, rgba(8, 145, 178, 0.5), rgba(30, 58, 138, 0.5))",
+                padding: "35px",
+                borderRadius: "16px",
+                border: "1px solid rgba(34, 211, 238, 0.3)",
+                transition: "all 0.3s",
+              }}
+            >
+              <div style={{ fontSize: "60px", marginBottom: "15px" }}>🤖</div>
+              <h3
+                style={{
+                  fontSize: "28px",
+                  fontWeight: "700",
+                  color: "#67e8f9",
+                  marginBottom: "15px",
+                }}
+              >
                 AI-Powered Analysis
               </h3>
-              <p className="text-lg text-gray-300">
+              <p
+                style={{
+                  fontSize: "20px",
+                  color: "#d1d5db",
+                  lineHeight: "1.5",
+                }}
+              >
                 Groq's LLM analyzes transaction data and provides human-readable
                 summaries with key insights
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-900/50 to-pink-900/50 p-8 rounded-2xl border border-purple-500/30 hover:border-purple-400 transition-all">
-              <div className="text-5xl mb-4">⚡</div>
-              <h3 className="text-2xl font-bold text-purple-300 mb-4">
+            <div
+              style={{
+                background:
+                  "linear-gradient(to bottom right, rgba(88, 28, 135, 0.5), rgba(157, 23, 77, 0.5))",
+                padding: "35px",
+                borderRadius: "16px",
+                border: "1px solid rgba(168, 85, 247, 0.3)",
+                transition: "all 0.3s",
+              }}
+            >
+              <div style={{ fontSize: "60px", marginBottom: "15px" }}>⚡</div>
+              <h3
+                style={{
+                  fontSize: "28px",
+                  fontWeight: "700",
+                  color: "#c084fc",
+                  marginBottom: "15px",
+                }}
+              >
                 Instant Results
               </h3>
-              <p className="text-lg text-gray-300">
+              <p
+                style={{
+                  fontSize: "20px",
+                  color: "#d1d5db",
+                  lineHeight: "1.5",
+                }}
+              >
                 Get comprehensive transaction analysis in seconds, not hours
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-green-900/50 to-emerald-900/50 p-8 rounded-2xl border border-green-500/30 hover:border-green-400 transition-all">
-              <div className="text-5xl mb-4">💰</div>
-              <h3 className="text-2xl font-bold text-green-300 mb-4">
+            <div
+              style={{
+                background:
+                  "linear-gradient(to bottom right, rgba(6, 78, 59, 0.5), rgba(4, 120, 87, 0.5))",
+                padding: "35px",
+                borderRadius: "16px",
+                border: "1px solid rgba(16, 185, 129, 0.3)",
+                transition: "all 0.3s",
+              }}
+            >
+              <div style={{ fontSize: "60px", marginBottom: "15px" }}>💰</div>
+              <h3
+                style={{
+                  fontSize: "28px",
+                  fontWeight: "700",
+                  color: "#6ee7b7",
+                  marginBottom: "15px",
+                }}
+              >
                 Pay-Per-Use Model
               </h3>
-              <p className="text-lg text-gray-300">
+              <p
+                style={{
+                  fontSize: "20px",
+                  color: "#d1d5db",
+                  lineHeight: "1.5",
+                }}
+              >
                 Only 0.001 USDC per analysis using FareMeter's micro-payment
                 infrastructure
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-blue-900/50 to-indigo-900/50 p-8 rounded-2xl border border-blue-500/30 hover:border-blue-400 transition-all">
-              <div className="text-5xl mb-4">📊</div>
-              <h3 className="text-2xl font-bold text-blue-300 mb-4">
+            <div
+              style={{
+                background:
+                  "linear-gradient(to bottom right, rgba(30, 58, 138, 0.5), rgba(49, 46, 129, 0.5))",
+                padding: "35px",
+                borderRadius: "16px",
+                border: "1px solid rgba(59, 130, 246, 0.3)",
+                transition: "all 0.3s",
+              }}
+            >
+              <div style={{ fontSize: "60px", marginBottom: "15px" }}>📊</div>
+              <h3
+                style={{
+                  fontSize: "28px",
+                  fontWeight: "700",
+                  color: "#93c5fd",
+                  marginBottom: "15px",
+                }}
+              >
                 Structured Insights
               </h3>
-              <p className="text-lg text-gray-300">
+              <p
+                style={{
+                  fontSize: "20px",
+                  color: "#d1d5db",
+                  lineHeight: "1.5",
+                }}
+              >
                 View transaction type, status, fees, signers, actions, and
                 AI-generated summaries
               </p>
@@ -148,76 +374,250 @@ export default function PitchDeck() {
       id: 3,
       title: "How It Works",
       content: (
-        <div className="h-full">
-          <h2 className="text-5xl font-bold mb-8 text-white">
+        <div style={{ height: "100%" }}>
+          <h2
+            style={{
+              fontSize: "56px",
+              fontWeight: "700",
+              marginBottom: "40px",
+              color: "white",
+            }}
+          >
             How It Works 🔄
           </h2>
-          <div className="flex flex-col space-y-4">
-            <div className="flex items-start gap-6 bg-gradient-to-r from-slate-800/50 to-slate-700/50 p-6 rounded-xl border border-slate-600/30 hover:border-slate-500 transition-all">
-              <div className="bg-cyan-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold flex-shrink-0">
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "25px",
+                background:
+                  "linear-gradient(to right, rgba(30, 41, 59, 0.5), rgba(51, 65, 85, 0.5))",
+                padding: "25px",
+                borderRadius: "12px",
+                border: "1px solid rgba(71, 85, 105, 0.3)",
+                transition: "all 0.3s",
+              }}
+            >
+              <div
+                style={{
+                  background: "#06b6d4",
+                  color: "white",
+                  borderRadius: "50%",
+                  width: "50px",
+                  height: "50px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "24px",
+                  fontWeight: "700",
+                  flexShrink: 0,
+                }}
+              >
                 1
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-cyan-300 mb-2">
+                <h3
+                  style={{
+                    fontSize: "26px",
+                    fontWeight: "700",
+                    color: "#67e8f9",
+                    marginBottom: "10px",
+                  }}
+                >
                   Connect Phantom Wallet
                 </h3>
-                <p className="text-lg text-gray-300">
+                <p style={{ fontSize: "20px", color: "#d1d5db" }}>
                   User connects their Phantom wallet on Solana Devnet
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-6 bg-gradient-to-r from-slate-800/50 to-slate-700/50 p-6 rounded-xl border border-slate-600/30 hover:border-slate-500 transition-all">
-              <div className="bg-purple-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold flex-shrink-0">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "25px",
+                background:
+                  "linear-gradient(to right, rgba(30, 41, 59, 0.5), rgba(51, 65, 85, 0.5))",
+                padding: "25px",
+                borderRadius: "12px",
+                border: "1px solid rgba(71, 85, 105, 0.3)",
+                transition: "all 0.3s",
+              }}
+            >
+              <div
+                style={{
+                  background: "#a855f7",
+                  color: "white",
+                  borderRadius: "50%",
+                  width: "50px",
+                  height: "50px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "24px",
+                  fontWeight: "700",
+                  flexShrink: 0,
+                }}
+              >
                 2
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-purple-300 mb-2">
+                <h3
+                  style={{
+                    fontSize: "26px",
+                    fontWeight: "700",
+                    color: "#c084fc",
+                    marginBottom: "10px",
+                  }}
+                >
                   Enter Transaction Hash
                 </h3>
-                <p className="text-lg text-gray-300">
+                <p style={{ fontSize: "20px", color: "#d1d5db" }}>
                   User pastes any Solana transaction signature from devnet
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-6 bg-gradient-to-r from-slate-800/50 to-slate-700/50 p-6 rounded-xl border border-slate-600/30 hover:border-slate-500 transition-all">
-              <div className="bg-green-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold flex-shrink-0">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "25px",
+                background:
+                  "linear-gradient(to right, rgba(30, 41, 59, 0.5), rgba(51, 65, 85, 0.5))",
+                padding: "25px",
+                borderRadius: "12px",
+                border: "1px solid rgba(71, 85, 105, 0.3)",
+                transition: "all 0.3s",
+              }}
+            >
+              <div
+                style={{
+                  background: "#10b981",
+                  color: "white",
+                  borderRadius: "50%",
+                  width: "50px",
+                  height: "50px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "24px",
+                  fontWeight: "700",
+                  flexShrink: 0,
+                }}
+              >
                 3
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-green-300 mb-2">
+                <h3
+                  style={{
+                    fontSize: "26px",
+                    fontWeight: "700",
+                    color: "#6ee7b7",
+                    marginBottom: "10px",
+                  }}
+                >
                   Make Micro-Payment
                 </h3>
-                <p className="text-lg text-gray-300">
+                <p style={{ fontSize: "20px", color: "#d1d5db" }}>
                   Pay 0.001 USDC via FareMeter's payment middleware
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-6 bg-gradient-to-r from-slate-800/50 to-slate-700/50 p-6 rounded-xl border border-slate-600/30 hover:border-slate-500 transition-all">
-              <div className="bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold flex-shrink-0">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "25px",
+                background:
+                  "linear-gradient(to right, rgba(30, 41, 59, 0.5), rgba(51, 65, 85, 0.5))",
+                padding: "25px",
+                borderRadius: "12px",
+                border: "1px solid rgba(71, 85, 105, 0.3)",
+                transition: "all 0.3s",
+              }}
+            >
+              <div
+                style={{
+                  background: "#3b82f6",
+                  color: "white",
+                  borderRadius: "50%",
+                  width: "50px",
+                  height: "50px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "24px",
+                  fontWeight: "700",
+                  flexShrink: 0,
+                }}
+              >
                 4
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-blue-300 mb-2">
+                <h3
+                  style={{
+                    fontSize: "26px",
+                    fontWeight: "700",
+                    color: "#93c5fd",
+                    marginBottom: "10px",
+                  }}
+                >
                   AI Analysis
                 </h3>
-                <p className="text-lg text-gray-300">
+                <p style={{ fontSize: "20px", color: "#d1d5db" }}>
                   Groq LLM analyzes the transaction and generates insights
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-6 bg-gradient-to-r from-slate-800/50 to-slate-700/50 p-6 rounded-xl border border-slate-600/30 hover:border-slate-500 transition-all">
-              <div className="bg-pink-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold flex-shrink-0">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "25px",
+                background:
+                  "linear-gradient(to right, rgba(30, 41, 59, 0.5), rgba(51, 65, 85, 0.5))",
+                padding: "25px",
+                borderRadius: "12px",
+                border: "1px solid rgba(71, 85, 105, 0.3)",
+                transition: "all 0.3s",
+              }}
+            >
+              <div
+                style={{
+                  background: "#ec4899",
+                  color: "white",
+                  borderRadius: "50%",
+                  width: "50px",
+                  height: "50px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "24px",
+                  fontWeight: "700",
+                  flexShrink: 0,
+                }}
+              >
                 5
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-pink-300 mb-2">
+                <h3
+                  style={{
+                    fontSize: "26px",
+                    fontWeight: "700",
+                    color: "#f9a8d4",
+                    marginBottom: "10px",
+                  }}
+                >
                   View Results
                 </h3>
-                <p className="text-lg text-gray-300">
+                <p style={{ fontSize: "20px", color: "#d1d5db" }}>
                   Get comprehensive analysis with structured data and AI summary
                 </p>
               </div>
@@ -230,84 +630,261 @@ export default function PitchDeck() {
       id: 4,
       title: "Tech Stack & Future",
       content: (
-        <div className="h-full grid grid-cols-2 gap-8">
+        <div
+          style={{
+            height: "100%",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "40px",
+          }}
+        >
           <div>
-            <h2 className="text-4xl font-bold mb-6 text-white">
+            <h2
+              style={{
+                fontSize: "48px",
+                fontWeight: "700",
+                marginBottom: "30px",
+                color: "white",
+              }}
+            >
               Tech Stack 🛠️
             </h2>
-            <div className="space-y-4">
-              <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-600/30">
-                <h4 className="text-xl font-bold text-cyan-400 mb-2">
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+            >
+              <div
+                style={{
+                  background: "rgba(30, 41, 59, 0.5)",
+                  padding: "20px",
+                  borderRadius: "12px",
+                  border: "1px solid rgba(71, 85, 105, 0.3)",
+                }}
+              >
+                <h4
+                  style={{
+                    fontSize: "22px",
+                    fontWeight: "700",
+                    color: "#22d3ee",
+                    marginBottom: "10px",
+                  }}
+                >
                   Frontend
                 </h4>
-                <p className="text-gray-300">Next.js 14, React, TypeScript</p>
+                <p style={{ color: "#d1d5db", fontSize: "18px" }}>
+                  Next.js 14, React, TypeScript
+                </p>
               </div>
-              <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-600/30">
-                <h4 className="text-xl font-bold text-purple-400 mb-2">
+              <div
+                style={{
+                  background: "rgba(30, 41, 59, 0.5)",
+                  padding: "20px",
+                  borderRadius: "12px",
+                  border: "1px solid rgba(71, 85, 105, 0.3)",
+                }}
+              >
+                <h4
+                  style={{
+                    fontSize: "22px",
+                    fontWeight: "700",
+                    color: "#a855f7",
+                    marginBottom: "10px",
+                  }}
+                >
                   Blockchain
                 </h4>
-                <p className="text-gray-300">Solana Web3.js, Phantom Wallet</p>
+                <p style={{ color: "#d1d5db", fontSize: "18px" }}>
+                  Solana Web3.js, Phantom Wallet
+                </p>
               </div>
-              <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-600/30">
-                <h4 className="text-xl font-bold text-green-400 mb-2">
+              <div
+                style={{
+                  background: "rgba(30, 41, 59, 0.5)",
+                  padding: "20px",
+                  borderRadius: "12px",
+                  border: "1px solid rgba(71, 85, 105, 0.3)",
+                }}
+              >
+                <h4
+                  style={{
+                    fontSize: "22px",
+                    fontWeight: "700",
+                    color: "#10b981",
+                    marginBottom: "10px",
+                  }}
+                >
                   Payments
                 </h4>
-                <p className="text-gray-300">FareMeter Middleware, USDC</p>
+                <p style={{ color: "#d1d5db", fontSize: "18px" }}>
+                  FareMeter Middleware, USDC
+                </p>
               </div>
-              <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-600/30">
-                <h4 className="text-xl font-bold text-blue-400 mb-2">AI</h4>
-                <p className="text-gray-300">Groq API (GPT-OSS-20B)</p>
+              <div
+                style={{
+                  background: "rgba(30, 41, 59, 0.5)",
+                  padding: "20px",
+                  borderRadius: "12px",
+                  border: "1px solid rgba(71, 85, 105, 0.3)",
+                }}
+              >
+                <h4
+                  style={{
+                    fontSize: "22px",
+                    fontWeight: "700",
+                    color: "#3b82f6",
+                    marginBottom: "10px",
+                  }}
+                >
+                  AI
+                </h4>
+                <p style={{ color: "#d1d5db", fontSize: "18px" }}>
+                  Groq API (GPT-OSS-20B)
+                </p>
               </div>
             </div>
           </div>
 
           <div>
-            <h2 className="text-4xl font-bold mb-6 text-white">
+            <h2
+              style={{
+                fontSize: "48px",
+                fontWeight: "700",
+                marginBottom: "30px",
+                color: "white",
+              }}
+            >
               Future Roadmap 🚀
             </h2>
-            <div className="space-y-4">
-              <div className="bg-gradient-to-r from-cyan-900/30 to-cyan-800/30 p-4 rounded-xl border-l-4 border-cyan-500">
-                <div className="flex items-center gap-2 mb-2">
-                  <Rocket size={24} className="text-cyan-400" />
-                  <h4 className="text-xl font-bold text-cyan-300">
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+            >
+              <div
+                style={{
+                  background:
+                    "linear-gradient(to right, rgba(8, 145, 178, 0.3), rgba(6, 182, 212, 0.3))",
+                  padding: "20px",
+                  borderRadius: "12px",
+                  borderLeft: "4px solid #06b6d4",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <Rocket size={24} style={{ color: "#22d3ee" }} />
+                  <h4
+                    style={{
+                      fontSize: "22px",
+                      fontWeight: "700",
+                      color: "#67e8f9",
+                    }}
+                  >
                     Mainnet Launch
                   </h4>
                 </div>
-                <p className="text-gray-300">Deploy to Solana mainnet-beta</p>
+                <p style={{ color: "#d1d5db", fontSize: "18px" }}>
+                  Deploy to Solana mainnet-beta
+                </p>
               </div>
 
-              <div className="bg-gradient-to-r from-purple-900/30 to-purple-800/30 p-4 rounded-xl border-l-4 border-purple-500">
-                <div className="flex items-center gap-2 mb-2">
-                  <Brain size={24} className="text-purple-400" />
-                  <h4 className="text-xl font-bold text-purple-300">
+              <div
+                style={{
+                  background:
+                    "linear-gradient(to right, rgba(88, 28, 135, 0.3), rgba(126, 34, 206, 0.3))",
+                  padding: "20px",
+                  borderRadius: "12px",
+                  borderLeft: "4px solid #a855f7",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <Brain size={24} style={{ color: "#a855f7" }} />
+                  <h4
+                    style={{
+                      fontSize: "22px",
+                      fontWeight: "700",
+                      color: "#c084fc",
+                    }}
+                  >
                     Advanced AI Models
                   </h4>
                 </div>
-                <p className="text-gray-300">
+                <p style={{ color: "#d1d5db", fontSize: "18px" }}>
                   Integrate multiple AI models for deeper analysis
                 </p>
               </div>
 
-              <div className="bg-gradient-to-r from-green-900/30 to-green-800/30 p-4 rounded-xl border-l-4 border-green-500">
-                <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp size={24} className="text-green-400" />
-                  <h4 className="text-xl font-bold text-green-300">
+              <div
+                style={{
+                  background:
+                    "linear-gradient(to right, rgba(6, 78, 59, 0.3), rgba(5, 150, 105, 0.3))",
+                  padding: "20px",
+                  borderRadius: "12px",
+                  borderLeft: "4px solid #10b981",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <TrendingUp size={24} style={{ color: "#10b981" }} />
+                  <h4
+                    style={{
+                      fontSize: "22px",
+                      fontWeight: "700",
+                      color: "#6ee7b7",
+                    }}
+                  >
                     Batch Analysis
                   </h4>
                 </div>
-                <p className="text-gray-300">
+                <p style={{ color: "#d1d5db", fontSize: "18px" }}>
                   Analyze multiple transactions at once
                 </p>
               </div>
 
-              <div className="bg-gradient-to-r from-blue-900/30 to-blue-800/30 p-4 rounded-xl border-l-4 border-blue-500">
-                <div className="flex items-center gap-2 mb-2">
-                  <Zap size={24} className="text-blue-400" />
-                  <h4 className="text-xl font-bold text-blue-300">
+              <div
+                style={{
+                  background:
+                    "linear-gradient(to right, rgba(30, 58, 138, 0.3), rgba(37, 99, 235, 0.3))",
+                  padding: "20px",
+                  borderRadius: "12px",
+                  borderLeft: "4px solid #3b82f6",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <Zap size={24} style={{ color: "#3b82f6" }} />
+                  <h4
+                    style={{
+                      fontSize: "22px",
+                      fontWeight: "700",
+                      color: "#93c5fd",
+                    }}
+                  >
                     Real-time Monitoring
                   </h4>
                 </div>
-                <p className="text-gray-300">
+                <p style={{ color: "#d1d5db", fontSize: "18px" }}>
                   Watch and analyze transactions in real-time
                 </p>
               </div>
@@ -345,51 +922,190 @@ export default function PitchDeck() {
   }, [currentSlide, slides.length]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col">
+    <div
+      style={{
+        minHeight: "100vh",
+        background:
+          "linear-gradient(to bottom right, #0f172a, #581c87, #0f172a)",
+        display: "flex",
+        flexDirection: "column",
+        position: "relative",
+      }}
+    >
+      <Link
+        href="/"
+        style={{
+          position: "absolute",
+          top: "25px",
+          left: "25px",
+          cursor: "pointer",
+          padding: "10px",
+          borderRadius: "10%",
+          background: "rgba(51, 65, 85, 0.5)",
+          color: "white",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transition: "0.3s",
+          backdropFilter: "blur(6px)",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "scale(1.1)";
+          e.currentTarget.style.background = "rgba(71, 85, 105, 0.6)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "scale(1)";
+          e.currentTarget.style.background = "rgba(51, 65, 85, 0.5)";
+        }}
+      >
+        <ChevronLeft size={22} /> <span>Home</span>
+      </Link>
+
       {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center p-8">
-        <div className="w-full max-w-7xl">
-          <div className="bg-slate-800/40 backdrop-blur-lg rounded-3xl shadow-2xl border border-slate-700/50 p-12 min-h-[600px]">
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "40px",
+        }}
+      >
+        <div style={{ width: "100%", maxWidth: "1400px" }}>
+          <div
+            style={{
+              background: "rgba(30, 41, 59, 0.4)",
+              backdropFilter: "blur(16px)",
+              borderRadius: "24px",
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+              border: "1px solid rgba(71, 85, 105, 0.5)",
+              padding: "50px",
+              minHeight: "600px",
+            }}
+          >
             {slides[currentSlide].content}
           </div>
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="pb-8 px-8">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div
+        style={{
+          paddingBottom: "40px",
+          paddingLeft: "40px",
+          paddingRight: "40px",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "1400px",
+            margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <button
             onClick={prevSlide}
-            className="bg-slate-700/50 hover:bg-slate-600/50 text-white p-4 rounded-full transition-all hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={currentSlide === 0}
+            style={{
+              background: "rgba(51, 65, 85, 0.5)",
+              color: "white",
+              padding: "16px",
+              borderRadius: "50%",
+              border: "none",
+              cursor: currentSlide === 0 ? "not-allowed" : "pointer",
+              opacity: currentSlide === 0 ? 0.5 : 1,
+              transition: "all 0.3s",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onMouseEnter={(e) => {
+              if (currentSlide !== 0) {
+                e.currentTarget.style.background = "rgba(71, 85, 105, 0.5)";
+                e.currentTarget.style.transform = "scale(1.1)";
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(51, 65, 85, 0.5)";
+              e.currentTarget.style.transform = "scale(1)";
+            }}
           >
             <ChevronLeft size={24} />
           </button>
 
-          <div className="flex gap-3">
+          <div style={{ display: "flex", gap: "12px" }}>
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`h-3 rounded-full transition-all ${
-                  index === currentSlide
-                    ? "w-12 bg-gradient-to-r from-cyan-400 to-blue-500"
-                    : "w-3 bg-slate-600 hover:bg-slate-500"
-                }`}
+                style={{
+                  height: "12px",
+                  width: index === currentSlide ? "48px" : "12px",
+                  borderRadius: "6px",
+                  border: "none",
+                  background:
+                    index === currentSlide
+                      ? "linear-gradient(to right, #22d3ee, #3b82f6)"
+                      : "#475569",
+                  cursor: "pointer",
+                  transition: "all 0.3s",
+                }}
+                onMouseEnter={(e) => {
+                  if (index !== currentSlide) {
+                    e.currentTarget.style.background = "#64748b";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (index !== currentSlide) {
+                    e.currentTarget.style.background = "#475569";
+                  }
+                }}
               />
             ))}
           </div>
 
           <button
             onClick={nextSlide}
-            className="bg-slate-700/50 hover:bg-slate-600/50 text-white p-4 rounded-full transition-all hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={currentSlide === slides.length - 1}
+            style={{
+              background: "rgba(51, 65, 85, 0.5)",
+              color: "white",
+              padding: "16px",
+              borderRadius: "50%",
+              border: "none",
+              cursor:
+                currentSlide === slides.length - 1 ? "not-allowed" : "pointer",
+              opacity: currentSlide === slides.length - 1 ? 0.5 : 1,
+              transition: "all 0.3s",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onMouseEnter={(e) => {
+              if (currentSlide !== slides.length - 1) {
+                e.currentTarget.style.background = "rgba(71, 85, 105, 0.5)";
+                e.currentTarget.style.transform = "scale(1.1)";
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(51, 65, 85, 0.5)";
+              e.currentTarget.style.transform = "scale(1)";
+            }}
           >
             <ChevronRight size={24} />
           </button>
         </div>
 
-        <div className="text-center mt-4 text-slate-400 text-sm">
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: "20px",
+            color: "#94a3b8",
+            fontSize: "14px",
+          }}
+        >
           Slide {currentSlide + 1} of {slides.length}
         </div>
       </div>
